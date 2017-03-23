@@ -1,3 +1,8 @@
+import $ from 'jquery'
+import TweenLite from 'gsap'
+
+console.log(TweenLite);
+
 $(document).ready(()=>{
 	let $blackFilter = $(".black-filter");
 	TweenLite.from($blackFilter,1.5,

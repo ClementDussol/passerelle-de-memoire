@@ -1,0 +1,33 @@
+{
+  "name": "passerelle_de_memoire",
+  "version": "1.0.0",
+  "description": "LAB 201 @ l'Ecole Multimedia",
+  "main": "webpack.config.js",
+  "scripts": {
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClementDussol/passerelle-de-memoire.git"
+  },
+  "author": "Victor MOUTTON, Eliott BARBOT, Sergine NDOUKOU, Clément DUSSOL",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ClementDussol/Passerelle-de-memoire/issues"
+  },
+  "homepage": "https://github.com/ClementDussol/Passerelle-de-memoire#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "gsap": "^1.19.1",
+    "jquery": "^3.1.1",
+    "vue": "^2.2.4"
+  },
+  "devDependencies": {
+    "webpack": "^2.2.1",
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.0",
+    "babel-preset-env": "^1.2.1",
+    "live-server": "^1.1.0"
+  }
+}
