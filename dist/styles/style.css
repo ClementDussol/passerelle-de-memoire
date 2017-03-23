@@ -17,7 +17,7 @@
 body{
 	background-color: #444;
 	margin: 0; padding: 0;
-	font-size: 14px;
+	font-size: calc(.64vw + 4px);
 	overflow-x: hidden;
 }
 h1{ font-size: 3.2em; }
