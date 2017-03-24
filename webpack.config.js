@@ -1,9 +1,12 @@
 module.exports = {
-  entry: "./src/main.js",
+  entry: {
+    main: "./src/main.js",
+    cloud: "./src/cloud.js"
+  },
   output: {
   	path: __dirname + "/dist/",
   	publicPath: __dirname + '/dist/',
-    filename: "bundle.js"
+    filename: "[name].bundle.js"
   },
   module: {
     loaders: [
