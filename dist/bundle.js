@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "C:\\xampp\\htdocs\\passerelle-de-memoire/dist/";
+/******/ 	__webpack_require__.p = "C:\\Users\\Victor\\Documents\\Ecole Multimedia\\Lab201\\site/dist/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 2);
@@ -18207,27 +18207,31 @@ var _gsap2 = _interopRequireDefault(_gsap);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-console.log(_gsap2.default);
+var winHeight = window.innerHeight;
+var introPlayed = false;
+var affMenuPlayed = false;
 
 (0, _jquery2.default)(document).ready(function () {
+	if (!affMenuPlayed) {
+		playMenu();
+	}
+
+	var scrolli = (0, _jquery2.default)("body").scrollTop();
+	setInterval(function () {
+		scrolli = (0, _jquery2.default)("body").scrollTop();
+
+		if (scrolli > winHeight - 300 && !introPlayed) {
+			playIntro();
+		};
+	}, 100);
+});
+function playMenu() {
+	affMenuPlayed = true;
 	var $blackFilter = (0, _jquery2.default)(".black-filter");
 	_gsap2.default.from($blackFilter, 1.5, {
 		backgroundColor: "rgba(5,0,4,1)",
 		ease: Power1.easeInOut
 	});
-	/*for (var i = 2; i > 0; i--) {
- 	let snIndice = i;
- 	let $baseLine = $('#section1 .base-line>h1:nth-child('+snIndice+')');
- 	console.log(snIndice);
- 	TweenLite.from($baseLine, 1.5,
- 		{
- 		opacity:0,
- 		marginLeft:""+(2*snIndice)+"em",
- 		ease: Power1.easeInOut,
- 		delay:.2*snIndice
- 		}
- 	);
- }*/
 	var $baseLine = (0, _jquery2.default)("#section1 .base-line");
 	_gsap2.default.from($baseLine, 1.5, {
 		opacity: 0,
@@ -18255,8 +18259,24 @@ console.log(_gsap2.default);
 			opacity: "0",
 			delay: .1 * i + .3
 		});
-	}
-});
+	};
+}
+function playIntro() {
+	_gsap2.default.to((0, _jquery2.default)('#section2>div'), 3.5, {
+		opacity: 1,
+		delay: .2
+	});
+	_gsap2.default.to((0, _jquery2.default)('#section2>div'), 13, {
+		marginLeft: "47vw",
+		ease: Linear.easeNone
+	});
+	_gsap2.default.to((0, _jquery2.default)('#section2>div'), 3.4, {
+		opacity: 0,
+		display: "none",
+		delay: 7.5
+	});
+	introPlayed = true;
+}
 
 /***/ }),
 /* 3 */

@@ -1,21 +1,46 @@
 /* Import des fonts */
 @font-face {
 	font-family: Acrom;
-	src:url("../assets/Acrom/Acrom.otf");
+	src:url("../assets/fonts/Acrom/Acrom.otf");
 }
 @font-face {
 	font-family: GothamRnd;
-	src:url("../assets/GothamRnd/GothamRnd-Medium.otf");
+	src:url("../assets/fonts/GothamRnd/GothamRnd-Medium.otf");
 	font-weight: 400;
 }
 @font-face {
 	font-family: GothamRndLight;
-	src:url("../assets/GothamRnd/GothamRnd-Light.otf");
+	src:url("../assets/fonts/GothamRnd/GothamRnd-Light.otf");
+	font-weight: 100;
+}
+@font-face {
+	font-family: GothamBlack;
+	src:url("../assets/fonts/GothamBlk/Gotham-Black.otf");
+}
+@font-face {
+	font-family: BauerBodoniStd;
+	src:url("../assets/fonts/BauerBodoniStd/BauerBodoniStd-Bold.otf");
+}
+@font-face {
+	font-family: Bodoni;
+	src:url("../assets/fonts/Bodoni72/Bodoni-72.ttc");
+}
+@font-face {
+	font-family: HelveticaNue;
+	src:url("../assets/fonts/HelveticaNue/HelveticaNeueLTStd-UltLt.otf");
+}
+@font-face {
+	font-family: TolyerX;
+	src:url("../assets/fonts/TolyerX3D/TolyerX3D.ttf");
+}
+@font-face {
+	font-family: SolideMirageEtroit;
+	src:url("../assets/fonts/SolideMirageEtroitWeb/Solide_Mirage-Etroit_web.ttf");
 	font-weight: 100;
 }
 
 body{
-	background-color: #444;
+	/* background-color: #444; */
 	margin: 0; padding: 0;
 	font-size: calc(.64vw + 4px);
 	overflow-x: hidden;
@@ -30,6 +55,11 @@ p{ font-size: 1em; }
 
 a{
 	text-decoration: none;
+}
+
+.bold{
+	font-family: GothamRnd;
+	font-weight: bolder;
 }
 
 /**/
@@ -54,10 +84,14 @@ nav{
 	width: 100vw;
 	height: 12vh;
 }
+	nav .selected{
+		border: 2px solid #fff;
+	}
 	nav img{
-		margin-top: 3vh;
-		margin-left: 3vw;
-		width: calc(5vw + 100px);
+		margin-top: .5vh;
+		margin-left: .7vw;
+		width: calc(7.5vw + 100px);
+		opacity: .95;
 	}
 	nav .right{
 		display: inline-block;
@@ -80,11 +114,7 @@ nav{
 		-webkit-animation-duration: .2s;
 	}
 	nav div>a:hover{
-		font-family: Acrom;
-		text-transform: uppercase;
 		border: 2px solid #fff;
-		text-align: center;
-		color: #fff;
 
 		transition: all 0.7s;
 		animation-duration: .7s;
@@ -92,62 +122,28 @@ nav{
 		-webkit-animation-duration: .7s;
 	}
 
-#section1{
-	text-transform: uppercase;
+nav#white-nav{
+	background-color: #fff;
+	height: 11vh;
 }
-#section1 *{
-	color: #fff;
-}
-#section1 video{
-		position: absolute;
-		width: 100vw;
-		top:0;
-		z-index: -2;
+	nav#white-nav .selected{
+		border: 2px solid #353139;
 	}
-#section1 .black-filter{
-		position: absolute;
-		width: 100vw; height: 100vh;
-		top:0;
-		z-index: -1;
-		background-color: rgba(20,0,10,.6);
-	}
-#section1 .base-line{
-		margin: 41vh 0 0 0;
-	}
-#section1 h1{
-		font-family: GothamRndLight;
-		font-weight: lighter;
-		line-height: 25px;
-	}
-#section1 button{
-		font-family: Acrom;
-		font-weight: 900;
-		display: block;
-		cursor: pointer;
-		background: none;
-		line-height: 0;
-
-		text-transform: uppercase;
-		font-size: 2em;
-		border: calc(3px + .17em) solid #F1F1F1;
-		margin: 18vh auto 0 auto;
-		padding: .1em 1.8em;
-	}
-#section1 button:hover{
-		background-color: #fff;
-		transition: all 0.5s;
-		animation-duration: .5s;
-		-webkit-transition: all 0.5s;
-		-webkit-animation-duration: .5s;
-	}
-#section1 button:hover *{
+	nav#white-nav *{
 		color: #353139;
-		transition: all 0.5s;
-		animation-duration: .5s;
-		-webkit-transition: all 0.5s;
-		-webkit-animation-duration: .5s;
 	}
+	nav#white-nav div>a:hover{
+		border: 2px solid #353139;
 
-#section2{
-	background-color: #353139;
-}
+		transition: all 0.7s;
+		animation-duration: .7s;
+		-webkit-transition: all 0.7s;
+		-webkit-animation-duration: .7s;	
+	}
+	nav#white-nav .right{
+		margin-top: 3.6vh;
+	}
+	nav#white-nav img{
+		margin-top: 0;
+		width: calc(7vw + 80px);
+	}
