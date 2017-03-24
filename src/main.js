@@ -1,9 +1,25 @@
 import $ from 'jquery'
 import TweenLite from 'gsap'
 
-console.log(TweenLite);
+let winHeight = window.innerHeight;
+let introPlayed = false;
+let affMenuPlayed = false;
 
 $(document).ready(()=>{
+	playMenu();
+	
+	let scrolli = $("body").scrollTop();
+	setInterval(function () {
+	    scrolli = $("body").scrollTop();
+
+	    if (scrolli>(winHeight-300) && !introPlayed){
+	    	playIntro();
+		};
+	}, 100);
+	
+});
+function playMenu() {
+	affMenuPlayed = true;
 	let $blackFilter = $(".black-filter");
 	TweenLite.from($blackFilter,1.5,
 		{
@@ -11,19 +27,6 @@ $(document).ready(()=>{
 		ease: Power1.easeInOut,
 		}
 	);
-	/*for (var i = 2; i > 0; i--) {
-		let snIndice = i;
-		let $baseLine = $('#section1 .base-line>h1:nth-child('+snIndice+')');
-		console.log(snIndice);
-		TweenLite.from($baseLine, 1.5,
-			{
-			opacity:0,
-			marginLeft:""+(2*snIndice)+"em",
-			ease: Power1.easeInOut,
-			delay:.2*snIndice
-			}
-		);
-	}*/
 	let $baseLine = $("#section1 .base-line");
 	TweenLite.from($baseLine, 1.5,
 		{
@@ -59,5 +62,27 @@ $(document).ready(()=>{
 				delay:.1*i+.3
 			}
 		);
-	}
-});
+	};
+}
+function playIntro() {
+	TweenLite.to($('#section2>div'), 3.5,
+		{
+		opacity:1,
+		delay:.2
+		}
+	);
+	TweenLite.to($('#section2>div'), 13,
+		{
+		marginLeft:"47vw",
+		ease: Linear.easeNone
+		}
+	);
+	TweenLite.to($('#section2>div'), 3.4,
+		{
+		opacity:0,
+		display:"none",
+		delay:7.5
+		}
+	);
+	introPlayed = true;
+}

@@ -1,0 +1,20 @@
+#section1{
+	background-image: url("../assets/Images/notreprojet_bgimg1.png");
+	background-repeat: no-repeat;
+	background-size: 100vw;
+	background-position: center center;
+}
+	#section1 div{
+		margin-left: 40vw;
+		margin-top: 20vh;
+		width: 45vw;
+		height: 50vh;
+		border: calc(.8em + .8vw) solid #fff;
+		border-right: none;
+	}
+	#section1 div>p{
+		font-family: BauerBodoniStd;
+		font-size: 14em;
+		line-height: 0;
+		color: #fff;
+	}
