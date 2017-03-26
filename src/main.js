@@ -71,9 +71,9 @@ function playIntro() {
 		delay:.2
 		}
 	);
-	TweenLite.to($('#section2>div'), 13,
+	TweenLite.to($('#section2>div'), 14,
 		{
-		marginLeft:"47vw",
+		marginLeft:"46vw",
 		ease: Linear.easeNone
 		}
 	);
@@ -81,7 +81,7 @@ function playIntro() {
 		{
 		opacity:0,
 		display:"none",
-		delay:7.5
+		delay:9
 		}
 	);
 	introPlayed = true;

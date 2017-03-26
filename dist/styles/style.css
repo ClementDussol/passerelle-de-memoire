@@ -4,6 +4,14 @@
 	src:url("../assets/fonts/Acrom/Acrom.otf");
 }
 @font-face {
+	font-family: AcromThin;
+	src:url("../assets/fonts/Acrom/AcromThin.otf");
+}
+@font-face {
+	font-family: AcromBold;
+	src:url("../assets/fonts/Acrom/AcromBold.otf");
+}
+@font-face {
 	font-family: GothamRnd;
 	src:url("../assets/fonts/GothamRnd/GothamRnd-Medium.otf");
 	font-weight: 400;
@@ -16,6 +24,10 @@
 @font-face {
 	font-family: GothamBlack;
 	src:url("../assets/fonts/GothamBlk/Gotham-Black.otf");
+}
+@font-face {
+	font-family: GothamXNarrow;
+	src:url("../assets/fonts/GothamX/GothamXNarrow-Thin.otf");
 }
 @font-face {
 	font-family: BauerBodoniStd;
@@ -31,7 +43,11 @@
 }
 @font-face {
 	font-family: TolyerX;
-	src:url("../assets/fonts/TolyerX3D/TolyerX3D.ttf");
+	src:url("../assets/fonts/Tolyer/TolyerX3D.ttf");
+}
+@font-face {
+	font-family: TolyerThinno;
+	src:url("../assets/fonts/Tolyer/TolyerThinno.1.ttf");
 }
 @font-face {
 	font-family: SolideMirageEtroit;
@@ -73,13 +89,14 @@ a{
 section{
 	width: 100vw;
 	height: 100vh;
-	max-width: 100vw;
 	max-height: 100vh;
+	min-width: 1000px;
+	min-height: calc(100vw * .535);
 	overflow: hidden;
 }
-
 nav{
 	position: fixed;
+	z-index: 10;
 	top:0;
 	width: 100vw;
 	height: 12vh;
