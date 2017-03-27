@@ -4,7 +4,6 @@ export class DragOn {
 	
 	constructor(element){
 
-		console.log($(element))
 		this.el = element;
 
 		this.layers = [];
@@ -46,7 +45,6 @@ export class DragOn {
 		// reset velocity
 			this.velocity = {x:0, y: 0};
 
-			console.log(this.cursor.down);
 		});
 
 	// on mouse up => drag end
@@ -82,7 +80,6 @@ export class DragOn {
 			this.velocity.x = Math.abs(avgDelta('x')) > 2 ? -avgDelta('x') : 0;
 			this.velocity.y = Math.abs(avgDelta('y')) > 2 ? -avgDelta('y') : 0;
 			
-			console.log(this.cursor.down);
 		});
 	
 	// on mouse move => move camera
@@ -100,7 +97,6 @@ export class DragOn {
 			let deltaX = this.cursor.history[0].x - e.pageX
 			let deltaY = this.cursor.history[0].y - e.pageY;
 			
-			console.log(deltaX, deltaY);
 			$(element).scrollTop( $(element).scrollTop() + deltaY );
 			$(element).scrollLeft( $(element).scrollLeft() + deltaX );
 
@@ -112,6 +108,32 @@ export class DragOn {
 	add(layer) {
 		this.layers.push(layer);
 		return layer;
+	}
+	
+	find(id) {
+		
+		for (let i = 0; i < this.layers.length; i++) {
+
+			if (this.layers[i].el == id) return this.layers[i];
+		}
+
+		return false;
+	}
+
+	focusOn(element) {
+
+		if (typeof element == 'string') {
+			element = this.find(element);
+		}
+		let $el = $(element.el);
+		
+		let x = parseInt($el.css('left')) - $(this.el).width()/2 + $el.width()/2;
+		let y = parseInt($el.css('top')) - $(this.el).height()/2 + $el.height()/2;
+
+		console.log(x,y);
+
+		$(this.el).scrollTop(y);
+		$(this.el).scrollLeft(x);
 	}
 
 	animate() {
@@ -136,18 +158,20 @@ export class DragOn {
 }
 
 export class Element {
+	
 	constructor(element, z) {
 		this.el = element;
 		this.z  = z;
 		$(element).css({
 			'position' : 'absolute',
 			'user-select' : 'none',
-			'transform': 'translateZ('+ z +'px)'
+			'transform': 'translateZ('+ z +'px)',
+			'z-index' : z 
 		});
 	}
+	
+	setPosition(x, y){
+		if (x) $(this.el).css('left', x + 'px');
+		if (y) $(this.el).css('top',  y + 'px');
+	}
 }
-
-let dragon = new DragOn('#camera');
-let layer  = dragon.add(new Element('#layer', -4));
-let layer1 = dragon.add(new Element('#layer1', 0));
-let layer2 = dragon.add(new Element('#layer2', 4));

@@ -3,8 +3,6 @@ let Tag = require('./../model/Tag');
 let Resource = require('./../model/Resource');
 let fs = require('fs');
 
-console.log('coucou');
-
 // connect to database
 mongoose.connect('mongodb://user:user@ds137530.mlab.com:37530/passerelle_de_memoire');
 
@@ -305,7 +303,7 @@ Resource.collection.insert(resources, (err)=>{
 function randomTags(){
 	
 	let r = [];
-	let nb = 3 + Math.ceil(Math.random()*6);
+	let nb = 3 + Math.ceil(Math.random()*9);
 	for (var i = 0; i < nb; i++) {
 
 		let rand = Math.floor(Math.random()*TAGS.length);

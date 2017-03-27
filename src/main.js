@@ -1,8 +1,8 @@
 import $ from 'jquery'
 import TweenLite from 'gsap'
 import {DragOn, Element} from './js/DragOn.js'
+import {Resource, Category} from './js/Resource.js'
 
-console.log(DragOn);
 
 let winHeight = window.innerHeight;
 let introPlayed = false;
@@ -88,7 +88,8 @@ function playIntro() {
 				opacity:0,
 				display:"none"
 			},
-			delay:7.5
+			delay:7.5,
+			onComplete: Cloud.init
 		}
 	); 
 	introPlayed = true;
@@ -96,43 +97,45 @@ function playIntro() {
 
 let Cloud = {
 
+	categories: {},
+
 	init(){
-		Cloud.drag = new DragOn('#cloud'),
-		Cloud.vue = new Vue({
-			el: '#layer',
-			data: {
-				resources: [],
-				categories : {
-					amour:{
-						entryPoint: null,
-						content:[]
-					},
-					travail:{
-						entryPoint: null,
-						content:[]
-					},
-					jeunesse:{
-						entryPoint: null,
-						content:[]
-					},
-					pensées:{
-						entryPoint: null,
-						content:[]
-					},
-					Histoire:{
-						entryPoint: null,
-						content:[]
-					}
-				}
-			}
-		})
+		
+		Cloud.drag = new DragOn('#cloud')
 
+		Cloud.drag.add(new Element('#bg', -4))
+		
 		Cloud.getResources((r)=>{
-			Cloud.vue.resources = r;
-			Cloud.storeResources();
+			
+			for (let i = 0; i < r.length; i ++) {
+				
+				let res = r[i];
+				
+				let cat = this.categories[res.category]
+				
+				if ( !cat ) {
+
+					this.categories[r[i].category] = new Category(r[i].category);
+					cat = this.categories[r[i].category];
+				}
+
+				let resource = new Resource(res, -2+Math.round(Math.random()*4), '#cloud');
+
+				if (resource.data.type == 'vidéo') {
+					cat.entryPoint = resource;
+				}
+				cat.add(resource);
+				Cloud.drag.add(resource);
+			}
+
+			let bg = Cloud.drag.find('#bg')
+
+			Cloud.categories.Histoire.entryPoint.setPosition($(bg.el).width()/2, $(bg.el).height()/2);
+			Cloud.drag.focusOn(Cloud.categories.Histoire.entryPoint);
+			Cloud.categories.Histoire.placeResources();
+
 		})
 
-		Cloud.drag.add(new Element('#layer', 0))
 	},
 
 	getResources(callback){
@@ -151,3 +154,4 @@ let Cloud = {
 }
 
 Cloud.init();
+

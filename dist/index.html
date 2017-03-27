@@ -44,13 +44,9 @@
 	</section>
 	
 	<div id="cloud">
-		<ul id="layer">	
-			<li class="resource" v-for="resource in resources">
-				<h4>{{ resource.title }}</h4>
-				<p v-if="resource.type == 'texte'">{{resource.content}}</p>{{resource.type}}
-				<img v-if="resource.type == 'image'" v-bind:src="resource.content">
-			</li>
-		</ul>
+		<div id="bg">
+			
+		</div>
 	</div>
 
 	<script src="bundle.js"></script>
