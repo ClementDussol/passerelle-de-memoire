@@ -1,5 +1,8 @@
 import $ from 'jquery'
 import TweenLite from 'gsap'
+import {DragOn, Element} from './js/DragOn.js'
+
+console.log(DragOn);
 
 let winHeight = window.innerHeight;
 let introPlayed = false;
@@ -64,6 +67,7 @@ function playMenu() {
 		);
 	};
 }
+
 function playIntro() {
 	TweenLite.to($('#section2>div'), 3.5,
 		{
@@ -79,10 +83,71 @@ function playIntro() {
 	);
 	TweenLite.to($('#section2>div'), 3.4,
 		{
-		opacity:0,
-		display:"none",
-		delay:7.5
+			css:
+			{
+				opacity:0,
+				display:"none"
+			},
+			delay:7.5
 		}
-	);
+	); 
 	introPlayed = true;
 }
+
+let Cloud = {
+
+	init(){
+		Cloud.drag = new DragOn('#cloud'),
+		Cloud.vue = new Vue({
+			el: '#layer',
+			data: {
+				resources: [],
+				categories : {
+					amour:{
+						entryPoint: null,
+						content:[]
+					},
+					travail:{
+						entryPoint: null,
+						content:[]
+					},
+					jeunesse:{
+						entryPoint: null,
+						content:[]
+					},
+					pensées:{
+						entryPoint: null,
+						content:[]
+					},
+					Histoire:{
+						entryPoint: null,
+						content:[]
+					}
+				}
+			}
+		})
+
+		Cloud.getResources((r)=>{
+			Cloud.vue.resources = r;
+			Cloud.storeResources();
+		})
+
+		Cloud.drag.add(new Element('#layer', 0))
+	},
+
+	getResources(callback){
+		$.get('/api/resources', (data) => {
+			callback(data);
+		})
+	},
+
+	storeResources(){
+
+		for (let i = 0; i < Cloud.vue.resources.length; i++) {
+			let r = Cloud.vue.resources[i];
+			Cloud.vue.categories[r.category].content.push(r);
+		}
+	}
+}
+
+Cloud.init();

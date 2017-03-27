@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 
 app.get('/img/:name', (req, res) => {
 	let fileName = req.params.name
-	res.sendFile('/resources/' + fileName);
+	res.sendFile(__dirname + '/dist/resources/' + fileName);
 })
 
 app.get('/api/resources/:tag', (req, res) => {
