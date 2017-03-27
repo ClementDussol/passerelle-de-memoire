@@ -1,0 +1,26 @@
+#section8{
+	background-image: url("../assets/Images/contact_bgimg1.png");
+	background-repeat: no-repeat;
+	background-size: 100vw;
+	background-min-size: 1000px;
+	background-position: center bottom;
+	background-color: #a478da;
+}
+	#section8 h1{
+		font-family: AcromBold;
+		font-weight: bolder;
+		font-size: 15em;
+		color: #fff;
+		margin-top: 58vh;
+		line-height: 0;
+		text-transform: uppercase;
+	}
+	#section8 img{
+		display: flex;
+		margin-right: auto; margin-left: auto;
+		margin-top: 32vh;
+	}
+
+#form{
+	background-color: #fff;
+}
