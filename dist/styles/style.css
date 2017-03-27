@@ -86,6 +86,10 @@ a{
 .ml-5{margin-left: 2.5em;}
 .ml-6{margin-left: 2em;}
 
+button{
+	cursor: pointer;
+}
+
 section{
 	width: 100vw;
 	height: 100vh;
