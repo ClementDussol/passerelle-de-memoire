@@ -8,10 +8,9 @@
 }
 #section1 video{
 		position: absolute;
-		top:-5vh;
 		z-index: -2;
-		width: 100vw;
-		min-width: 1800px;
+		min-width: 100vw;
+		min-height: 100vh;
 	}
 #section1 .black-filter{
 		position: absolute;
