@@ -24,3 +24,81 @@
 #form{
 	background-color: #fff;
 }
+#form form{
+	width: 85vw;
+	margin: 10vh auto 0 auto;
+}
+input{
+	border: none;
+}
+	#form h2{
+		font-family: Acrom;
+		color: #e8a382;
+		font-size: 3em;
+		float: right;
+		margin-right: -.1vw;
+	}
+	#form form>div>div input{
+		font-family: GothamRndLight;
+		width: 100%;
+		padding: 1.5vh .5vw;
+		font-size: 1em;
+		outline: none;
+		margin: 2.5vh 0;
+		border: .14em solid rgba(255,255,255,0);
+		border-bottom: .14em solid #e8a382;
+	}
+	#form input:focus{
+		border: .14em solid #e8a382;
+
+		transition: all 1.4s;
+		animation-duration: 1.4s;
+		-webkit-transition: all 1.4s;
+		-webkit-animation-duration: 1.4s;
+	}
+	#form textarea{
+		font-family: GothamRndLight;
+		margin-top: 3vh;
+		width: 100%;
+		height: 30vh;
+		padding: 1.5vh .5vw;
+		border: .14em solid #e8a382;
+		font-size: 1em;
+		outline: none;
+		resize: none;
+	}
+	#form button{
+		font-family: AcromBold;
+		font-weight: bolder;
+		background: none;
+		float: right;
+		margin-right: -1.2vw;
+		margin-top: 2vh;
+		font-size: 1.5em;
+		border: .5em solid #e8a382;
+		padding: .5em 3em;
+		text-transform: uppercase;
+
+		transition: all 0.2s;
+		animation-duration: .2s;
+		-webkit-transition: all 0.2s;
+		-webkit-animation-duration: .2s;
+	}
+	#form button:hover{
+		background-color: #e8a382;
+		color: #fff;
+
+		transition: all 0.3s;
+		animation-duration: .3s;
+		-webkit-transition: all 0.3s;
+		-webkit-animation-duration: .3s;		
+	}
+
+footer{
+	background-color: #1e1e1e;
+	height: 10vh;
+	text-align: center;
+}
+	footer i{
+		text-align: center;
+	}

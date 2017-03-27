@@ -25,38 +25,42 @@
 	</section>
 
 	<section id="form">
-		<div class="grid">
-			<div class="one-third"></div>
-			<div class="two-third">
-				<h2>Remplissez ce formulaire, et nous vous recontacterons au plus vite.</h2>
+		<form action="GET">
+
+			<div class="grid has-gutter-xl">
+				<div class="one-third"></div>
+				<div class="two-third">
+					<h2>Remplissez ce formulaire,<br/>et nous vous recontacterons au plus vite.</h2>
+				</div>
 			</div>
-		</div>
-		<div class="grid">
-			<div>
-				<input type="text">
+			<div class="grid has-gutter-xl">
+				<div>
+					<input type="text" name="name" id="name" placeholder="Entrez votre nom (obligatoire)">
+				</div>
+				<div>
+					<input type="mail" name="email" id="email" placeholder="Entrez votre e-mail (obligatoire)">
+				</div>
 			</div>
-			<div>
-				<input type="mail">
+			<div class="grid has-gutter-xl">
+				<div>
+					<input type="text" name="subject" id="subject" placeholder="Sujet">
+				</div>
 			</div>
-		</div>
-		<div class="grid">
-			<div>
-				<input type="text">
+			<div class="grid has-gutter-xl">
+				<div>
+					<textarea name="message" id="message" placeholder="Entrez votre message"></textarea>
+				</div>
 			</div>
-		</div>
-		<div class="grid">
-			<div>
-				
+			<div class="grid">
+				<div></div>
+				<div class="two-third">
+					<button type="submit">
+						envoyer
+					</button>
+				</div>
 			</div>
-		</div>
-		<div class="grid">
-			<div class="two-third"></div>
-			<div>
-				<button type="submit">
-					envoyer
-				</button>
-			</div>
-		</div>
+
+		</form>
 	</section>
 
 	<footer>
