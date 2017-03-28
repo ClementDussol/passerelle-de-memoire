@@ -155,6 +155,25 @@ export class DragOn {
 			self.animate();
 		});
 	}
+
+/*	isInView(element){
+
+		let left  = parseInt($(element.el).css('left'));
+		let top   = parseInt($(element.el).css('top'));
+		let right = parseInt($(element.el).css('left')) + $(element.el).width();
+		let down  = parseInt($(element.el).css('top')) + $(element.el).height();
+
+		let screenLeft  = parseInt($(this.el).css('left'));
+		let screenTop   = parseInt($(this.el).css('top'));
+		let screenRight = parseInt($(this.el).css('left')) + $(this.el).width();
+		let screenDown  = parseInt($(this.el).css('top')) + $(this.el).height();
+
+	}*/
+
+/*	distanceFromCenter(element) {
+
+		return 
+	}*/
 }
 
 export class Element {
@@ -171,7 +190,24 @@ export class Element {
 	}
 	
 	setPosition(x, y){
+
 		if (x) $(this.el).css('left', x + 'px');
 		if (y) $(this.el).css('top',  y + 'px');
+	}
+
+	getCenter(){
+
+		let x = parseInt($(this.el).css('left')) + $(this.el).width()/2;
+		let y = parseInt($(this.el).css('top')) + $(this.el).height()/2;
+
+		return {x:x, y:y};
+	}
+
+	setZ(z) {
+		this.z = z;
+		$(this.el).css({
+			'transform': 'translateZ('+ z +'px)',
+			'z-index' : z 
+		})
 	}
 }

@@ -103,7 +103,7 @@ let Cloud = {
 		
 		Cloud.drag = new DragOn('#cloud')
 
-		Cloud.drag.add(new Element('#bg', -4))
+		Cloud.drag.add(new Element('#bg', -8))
 		
 		Cloud.getResources((r)=>{
 			
@@ -119,10 +119,11 @@ let Cloud = {
 					cat = this.categories[r[i].category];
 				}
 
-				let resource = new Resource(res, -2+Math.round(Math.random()*4), '#cloud');
+				let resource = new Resource(res, -4+Math.round(Math.random()*8), '#cloud');
 
 				if (resource.data.type == 'vidéo') {
 					cat.entryPoint = resource;
+					cat.entryPoint.setZ(6);
 				}
 				cat.add(resource);
 				Cloud.drag.add(resource);
@@ -130,10 +131,28 @@ let Cloud = {
 
 			let bg = Cloud.drag.find('#bg')
 
-			Cloud.categories.Histoire.entryPoint.setPosition($(bg.el).width()/2, $(bg.el).height()/2);
-			Cloud.drag.focusOn(Cloud.categories.Histoire.entryPoint);
-			Cloud.categories.Histoire.placeResources();
+			let positions = [
 
+				{x: $(bg.el).width()/4, y:$(bg.el).height()/4},
+				{x: $(bg.el).width()/4*3, y:$(bg.el).height()/4},
+				{x: $(bg.el).width()/4, y:$(bg.el).height()/4*3},
+				{x: $(bg.el).width()/4*3, y:$(bg.el).height()/4*3},
+				{x: $(bg.el).width()/2, y:$(bg.el).height()/2}
+			]
+
+			let i = 0;
+
+			for (let cat in Cloud.categories) {
+				
+				let x = positions[i].x
+				let y = positions[i].y
+
+				Cloud.categories[cat].entryPoint.setPosition(x, y);
+				Cloud.categories[cat].placeResources();			
+				Cloud.drag.focusOn(Cloud.categories[cat].entryPoint);
+
+				i++;
+			}
 		})
 
 	},
@@ -154,4 +173,3 @@ let Cloud = {
 }
 
 Cloud.init();
-

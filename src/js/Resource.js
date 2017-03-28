@@ -19,18 +19,30 @@ export class Resource extends Element {
 		let $content = null;
 		switch (this.data.type) {
 			case 'vidéo':
+				
 				$content = $('<iframe>').attr({
 					src: this.data.content.replace('watch?v=', 'embed/'),
 					width: "560",
 					height: "315",
 					frameborder:"0"
 				})
+				
+				$desc.addClass('hidden');
+				$title.addClass('hidden');
+				
 				break;
+			
 			case 'texte':
 				$content = $('<p>').text(this.data.content);
 				break;
+			
 			case 'image':
+
+				$desc.addClass('hidden');
+				$title.addClass('hidden');
+				
 				$content = $('<img>').attr('src', this.data.content);
+				
 				break;
 		}
 
@@ -50,6 +62,14 @@ export class Resource extends Element {
 		}
 
 		return p
+	}
+
+	getCenter(){
+
+		let x = parseInt($(this.el).css('left')) + $(this.el).width()/2;
+		let y = parseInt($(this.el).css('top')) + $(this.el).height()/2;
+
+		return {x:x, y:y}
 	}
 }
 
@@ -84,7 +104,14 @@ export class Category {
 		for (let i = 0; i < this.resources.length; i++) {
 
 			if (this.resources[i] == this.entryPoint) {continue};
+			
 			let p = this.resources[i].relativePertinence(this.entryPoint);
+			
+			let x = this.entryPoint.getCenter().x + Math.cos(i) * (50*i+400);
+			let y = this.entryPoint.getCenter().y + Math.sin(i) * (50*i+400);
+			
+			this.resources[i].setPosition(x, y);
+			
 			if (obj[p]){
 				obj[p].push(this.resources[i]);
 			} else {
@@ -92,7 +119,5 @@ export class Category {
 				obj[p].push(this.resources[i]);
 			}
 		}
-
 	}
-
 }
