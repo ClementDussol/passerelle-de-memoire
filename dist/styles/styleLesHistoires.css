@@ -81,30 +81,98 @@
 	width: 100vw;
 	height: 90vh;
 	margin-top: 10vh;
+	padding: 0 4vw;
+}
+#share *{
 	color: #fff;
 }
+	#share .grid{
+		width: 92vw;
+	}
 	#share h2{
 		font-family: GothamRndLight;
+		font-size: 3.7em;
 		font-weight: lighter;
+		margin-top: 5vh;
+		width: 58vw;
 	}
 	#share>p{
-		font-family: GothamRnd;
+		font-family: GothamRndLight;
+		font-weight: lighter;
+		font-size: 1.9em;
 	}
-	#share input{
+	#share input, #share textarea{
 		font-family: GothamRndLight;
 		background: none;
-		width: 90%;
-		padding: 1.5vh .5vw;
-		font-size: 1em;
+		width: 94%;
+		padding-left: 1.5vh;
+		height: 2.8em;
+		font-size: 2em;
 		outline: none;
 		margin: 2.5vh 0;
-		border: .14em solid rgba(255,255,255,0);
+		border: .1em solid rgba(255,255,255,0);
 		border-bottom: .14em solid #96288a;
 	}
+	#share textarea{
+		border: .14em solid #96288a;
+		height: 18vh;
+		padding-top: 2vh;
+	}
+	#share input:focus{
+		border: .1em solid #96288a;
+
+		transition: all 1.4s;
+		animation-duration: 1.4s;
+		-webkit-transition: all 1.4s;
+		-webkit-animation-duration: 1.4s;
+	}
 	#share .file{
-		border: none;
+		font-family: AcromThin;
+		font-weight: 900;
+		background: none;
+		font-size: 2.3em;
 		width: 90%;
-		padding: 1.5vh .5vw;
-		font-size: 1em;
+		float: right;
+		padding-left: 1.5vh;
+		height: 2.9em;
+		outline: none;
+		margin: 2.5vh 0;
+		border: none;
 		background-color: #96288a;
+	}
+	#share button[type='submit']{
+		color: #000;
+		font-family: Acrom;
+		text-transform: uppercase;
+		background: none;
+		width: 100%;
+		padding-left: 1.5vh;
+		height: 20.5vh;
+		font-size: 2em;
+		outline: none;
+		margin: 2.5vh 0;
+		border: .9em solid #96288a;		
+	}
+	#share button[type='submit']:hover{
+		color: #fff;
+		background-color: #96288a;
+
+		transition: all .7s;
+		animation-duration: .7s;
+		-webkit-transition: all .7s;
+		-webkit-animation-duration: .7s;
+	}
+	::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+	    color:    rgba(255,255,255,0.6);
+	}
+	:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	   color:    rgba(255,255,255,0.6);
+	   opacity:  1;
+	}
+	::-moz-placeholder { /* Mozilla Firefox 19+ */
+	   color:    rgba(255,255,255,0.6);
+	   opacity:  1;
+	}
+	:-ms-input-placeholder { /* Internet Explorer 10-11 */
+	   color:    rgba(255,255,255,0.6);
 	}
