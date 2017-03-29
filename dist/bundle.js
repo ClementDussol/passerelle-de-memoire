@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "C:\\Users\\Victor\\Documents\\Ecole Multimedia\\Lab201\\site/dist/";
+/******/ 	__webpack_require__.p = "C:\\xampp\\htdocs\\passerelle-de-memoire/dist/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 4);
@@ -10346,6 +10346,8 @@ var _jquery2 = _interopRequireDefault(_jquery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var DragOn = exports.DragOn = function () {
@@ -10377,8 +10379,7 @@ var DragOn = exports.DragOn = function () {
 			'perspective': '32px',
 			'overflow': 'hidden',
 			'position': 'relative',
-			'perspective-origin': '50% 50%',
-			'cursor': 'grab'
+			'perspective-origin': '50% 50%'
 		});
 
 		// on mouse down => drag start
@@ -10395,9 +10396,11 @@ var DragOn = exports.DragOn = function () {
 			// reset velocity
 			_this.velocity = { x: 0, y: 0 };
 
-			(0, _jquery2.default)(element).css({
-				'cursor': 'grabbing'
-			});
+			(0, _jquery2.default)(element).addClass('mouseDown');
+
+			(0, _jquery2.default)(element).css(_defineProperty({
+				'cursor': '-webkit-grabbing'
+			}, 'cursor', '-moz-grabbing'));
 		});
 
 		// on mouse up => drag end
@@ -10427,12 +10430,14 @@ var DragOn = exports.DragOn = function () {
 				return t / deltas.length;
 			};
 
-			(0, _jquery2.default)(element).css({
-				'cursor': 'grabbing'
-			});
+			(0, _jquery2.default)(element).css(_defineProperty({
+				'cursor': '-webkit-grab'
+			}, 'cursor', '-moz-grab'));
 			// set velocity
 			_this.velocity.x = Math.abs(avgDelta('x')) > 2 ? -avgDelta('x') : 0;
 			_this.velocity.y = Math.abs(avgDelta('y')) > 2 ? -avgDelta('y') : 0;
+
+			(0, _jquery2.default)(element).removeClass('mouseDown');
 		});
 
 		// on mouse move => move camera
