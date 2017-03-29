@@ -11,8 +11,6 @@ body *{
 	background-size: 100vw;
 	background-position: center bottom;
 	background-color: #ddb766;
-
-	margin-top: 7vh;
 }
 	#section3 #nb-videos{
 		margin-left: 7vw;
@@ -157,7 +155,6 @@ body *{
 	#section5 .txt{
 		margin-top: 4em;
 		text-align: right;
-		border: 2px solid red;
 	}
 
 #section6{
