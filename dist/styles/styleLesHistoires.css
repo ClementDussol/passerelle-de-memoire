@@ -62,14 +62,49 @@
 	background-color: #353139;
 	font-family: GothamRndLight;
 }
-#section2 *{
+	#section2 *{
 		color: #fff;
 		font-weight: lighter;
 		line-height: 0px;
 	}
-#section2>div{
+	#section2>div{
 		opacity: 0;
 		margin-left: 34vw;
 		margin-top: 40vh;
 		width: 60vw;
+	}
+
+#share{
+	position: absolute;
+	z-index: 10000;
+	background-color: #758ec6;
+	width: 100vw;
+	height: 90vh;
+	margin-top: 10vh;
+	color: #fff;
+}
+	#share h2{
+		font-family: GothamRndLight;
+		font-weight: lighter;
+	}
+	#share>p{
+		font-family: GothamRnd;
+	}
+	#share input{
+		font-family: GothamRndLight;
+		background: none;
+		width: 90%;
+		padding: 1.5vh .5vw;
+		font-size: 1em;
+		outline: none;
+		margin: 2.5vh 0;
+		border: .14em solid rgba(255,255,255,0);
+		border-bottom: .14em solid #96288a;
+	}
+	#share .file{
+		border: none;
+		width: 90%;
+		padding: 1.5vh .5vw;
+		font-size: 1em;
+		background-color: #96288a;
 	}
