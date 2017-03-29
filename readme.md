@@ -1,5 +1,7 @@
 #Passerelle de mémoire
+
 ###Leur histoire est aussi la nôtre
+
 Avec **Passerelle de mémoire** on entre dans l’histoire par le détail. Nous avons chacun dans nos familles des personnes âgées qui ont vécu une autre époque : faits de guerre, résistance, migration, témoignages de vie sociale et professionnels… Même la question du bonheur est intéressante car les réponses sont surprenantes voire apaisantes. De tout cela se dégage une humanité à partager.
 
 La conscience de recueillir les mémoires, les témoignages ou les connaissances par l’oralité, est aujourd’hui si largement répandue que l’on peut parler d’un phénomène de société, explique Claire Scopsi, chercheuse au laboratoire DICEN, elle attribue ce phénomène à un contexte favorable : «_La reconnaissance du patrimoine culturel immatériel par la convention signée en 2003 par l’UNESCO a permis de populariser l’idée que les pratiques sociales professionnelles, les gestes, coutumes, cérémonies et fêtes constituent un trésor qui mérite d’être sauvegardé_» .  Elle poursuit avec : les centres d’intérêt vers des témoignages souvent humbles vers des acteurs de la vie et de l’économie locales et plus généralement vers ceux qui n’écriront pas…  

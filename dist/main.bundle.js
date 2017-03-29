@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "C:\\Users\\Victor\\Documents\\Ecole Multimedia\\Lab201\\site/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -10354,7 +10354,6 @@ var DragOn = exports.DragOn = function () {
 
 		_classCallCheck(this, DragOn);
 
-		console.log((0, _jquery2.default)(element));
 		this.el = element;
 
 		this.layers = [];
@@ -10394,8 +10393,6 @@ var DragOn = exports.DragOn = function () {
 
 			// reset velocity
 			_this.velocity = { x: 0, y: 0 };
-
-			console.log(_this.cursor.down);
 		});
 
 		// on mouse up => drag end
@@ -10428,8 +10425,6 @@ var DragOn = exports.DragOn = function () {
 			// set velocity
 			_this.velocity.x = Math.abs(avgDelta('x')) > 2 ? -avgDelta('x') : 0;
 			_this.velocity.y = Math.abs(avgDelta('y')) > 2 ? -avgDelta('y') : 0;
-
-			console.log(_this.cursor.down);
 		});
 
 		// on mouse move => move camera
@@ -10451,7 +10446,6 @@ var DragOn = exports.DragOn = function () {
 			var deltaX = _this.cursor.history[0].x - e.pageX;
 			var deltaY = _this.cursor.history[0].y - e.pageY;
 
-			console.log(deltaX, deltaY);
 			(0, _jquery2.default)(element).scrollTop((0, _jquery2.default)(element).scrollTop() + deltaY);
 			(0, _jquery2.default)(element).scrollLeft((0, _jquery2.default)(element).scrollLeft() + deltaX);
 		});
@@ -10464,6 +10458,34 @@ var DragOn = exports.DragOn = function () {
 		value: function add(layer) {
 			this.layers.push(layer);
 			return layer;
+		}
+	}, {
+		key: 'find',
+		value: function find(id) {
+
+			for (var i = 0; i < this.layers.length; i++) {
+
+				if (this.layers[i].el == id) return this.layers[i];
+			}
+
+			return false;
+		}
+	}, {
+		key: 'focusOn',
+		value: function focusOn(element) {
+
+			if (typeof element == 'string') {
+				element = this.find(element);
+			}
+			var $el = (0, _jquery2.default)(element.el);
+
+			var x = parseInt($el.css('left')) - (0, _jquery2.default)(this.el).width() / 2 + $el.width() / 2;
+			var y = parseInt($el.css('top')) - (0, _jquery2.default)(this.el).height() / 2 + $el.height() / 2;
+
+			console.log(x, y);
+
+			(0, _jquery2.default)(this.el).scrollTop(y);
+			(0, _jquery2.default)(this.el).scrollLeft(x);
 		}
 	}, {
 		key: 'animate',
@@ -10486,30 +10508,252 @@ var DragOn = exports.DragOn = function () {
 				self.animate();
 			});
 		}
+
+		/*	isInView(element){
+  
+  		let left  = parseInt($(element.el).css('left'));
+  		let top   = parseInt($(element.el).css('top'));
+  		let right = parseInt($(element.el).css('left')) + $(element.el).width();
+  		let down  = parseInt($(element.el).css('top')) + $(element.el).height();
+  
+  		let screenLeft  = parseInt($(this.el).css('left'));
+  		let screenTop   = parseInt($(this.el).css('top'));
+  		let screenRight = parseInt($(this.el).css('left')) + $(this.el).width();
+  		let screenDown  = parseInt($(this.el).css('top')) + $(this.el).height();
+  
+  	}*/
+
+		/*	distanceFromCenter(element) {
+  
+  		return 
+  	}*/
+
 	}]);
 
 	return DragOn;
 }();
 
-var Element = exports.Element = function Element(element, z) {
-	_classCallCheck(this, Element);
+var Element = exports.Element = function () {
+	function Element(element, z) {
+		_classCallCheck(this, Element);
 
-	this.el = element;
-	this.z = z;
-	(0, _jquery2.default)(element).css({
-		'position': 'absolute',
-		'user-select': 'none',
-		'transform': 'translateZ(' + z + 'px)'
-	});
-};
+		this.el = element;
+		this.z = z;
+		(0, _jquery2.default)(element).css({
+			'position': 'absolute',
+			'user-select': 'none',
+			'transform': 'translateZ(' + z + 'px)',
+			'z-index': z
+		});
+	}
 
-var dragon = new DragOn('#camera');
-var layer = dragon.add(new Element('#layer', -4));
-var layer1 = dragon.add(new Element('#layer1', 0));
-var layer2 = dragon.add(new Element('#layer2', 4));
+	_createClass(Element, [{
+		key: 'setPosition',
+		value: function setPosition(x, y) {
+
+			if (x) (0, _jquery2.default)(this.el).css('left', x + 'px');
+			if (y) (0, _jquery2.default)(this.el).css('top', y + 'px');
+		}
+	}, {
+		key: 'getCenter',
+		value: function getCenter() {
+
+			var x = parseInt((0, _jquery2.default)(this.el).css('left')) + (0, _jquery2.default)(this.el).width() / 2;
+			var y = parseInt((0, _jquery2.default)(this.el).css('top')) + (0, _jquery2.default)(this.el).height() / 2;
+
+			return { x: x, y: y };
+		}
+	}, {
+		key: 'setZ',
+		value: function setZ(z) {
+			this.z = z;
+			(0, _jquery2.default)(this.el).css({
+				'transform': 'translateZ(' + z + 'px)',
+				'z-index': z
+			});
+		}
+	}]);
+
+	return Element;
+}();
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.Category = exports.Resource = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _DragOn = __webpack_require__(1);
+
+var _jquery = __webpack_require__(0);
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Resource = exports.Resource = function (_Element) {
+	_inherits(Resource, _Element);
+
+	function Resource(data, z, parent) {
+		_classCallCheck(this, Resource);
+
+		var el = (0, _jquery2.default)('<div>');
+		el.attr('id', data._id);
+		(0, _jquery2.default)(parent).append(el);
+
+		var _this = _possibleConstructorReturn(this, (Resource.__proto__ || Object.getPrototypeOf(Resource)).call(this, '#' + data._id, z));
+
+		_this.data = data;
+
+		el.addClass(_this.data.type);
+		el.addClass(_this.data.category);
+		el.addClass('resource');
+
+		var $title = (0, _jquery2.default)('<h2>').text(_this.data.title);
+		var $desc = (0, _jquery2.default)('<p>').text(_this.data.description);
+		var $content = null;
+		switch (_this.data.type) {
+			case 'vidéo':
+
+				$content = (0, _jquery2.default)('<iframe>').attr({
+					src: _this.data.content.replace('watch?v=', 'embed/'),
+					width: "560",
+					height: "315",
+					frameborder: "0"
+				});
+
+				$desc.addClass('hidden');
+				$title.addClass('hidden');
+
+				break;
+
+			case 'texte':
+				$content = (0, _jquery2.default)('<p>').text(_this.data.content);
+				break;
+
+			case 'image':
+
+				$desc.addClass('hidden');
+				$title.addClass('hidden');
+
+				$content = (0, _jquery2.default)('<img>').attr('src', _this.data.content);
+
+				break;
+		}
+
+		el.append($title);
+		el.append($desc);
+		el.append($content);
+
+		return _this;
+	}
+
+	_createClass(Resource, [{
+		key: 'relativePertinence',
+		value: function relativePertinence(r) {
+			var len = this.data.tags.length;
+			var p = 0;
+
+			for (var i = 0; i < len; i++) {
+				if (r.data.tags.indexOf(this.data.tags[i]) < 0) {
+					continue;
+				}
+				p++;
+			}
+
+			return p;
+		}
+	}, {
+		key: 'getCenter',
+		value: function getCenter() {
+
+			var x = parseInt((0, _jquery2.default)(this.el).css('left')) + (0, _jquery2.default)(this.el).width() / 2;
+			var y = parseInt((0, _jquery2.default)(this.el).css('top')) + (0, _jquery2.default)(this.el).height() / 2;
+
+			return { x: x, y: y };
+		}
+	}]);
+
+	return Resource;
+}(_DragOn.Element);
+
+var Category = exports.Category = function () {
+	function Category(name) {
+		_classCallCheck(this, Category);
+
+		this.entryPoint = null;
+		this.name = name;
+		this.resources = [];
+	}
+
+	_createClass(Category, [{
+		key: 'add',
+		value: function add(r) {
+			this.resources.push(r);
+		}
+	}, {
+		key: 'orderResources',
+		value: function orderResources() {
+			var _this2 = this;
+
+			var len = this.resources.length;
+
+			this.resources.sort(function (a, b) {
+
+				var aPert = _this2.entryPoint.relativePertinence(a);
+				var bPert = _this2.entryPoint.relativePertinence(b);
+
+				return bPert - aPert;
+			});
+		}
+	}, {
+		key: 'placeResources',
+		value: function placeResources() {
+
+			var obj = {};
+
+			for (var i = 0; i < this.resources.length; i++) {
+
+				if (this.resources[i] == this.entryPoint) {
+					continue;
+				};
+
+				var p = this.resources[i].relativePertinence(this.entryPoint);
+
+				var x = this.entryPoint.getCenter().x + Math.cos(i) * (50 * i + 400);
+				var y = this.entryPoint.getCenter().y + Math.sin(i) * (50 * i + 400);
+
+				this.resources[i].setPosition(x, y);
+
+				if (obj[p]) {
+					obj[p].push(this.resources[i]);
+				} else {
+					obj[p] = [];
+					obj[p].push(this.resources[i]);
+				}
+			}
+		}
+	}]);
+
+	return Category;
+}();
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -16555,7 +16799,7 @@ if (_gsScope._gsDefine) { _gsScope._gsQueue.pop()(); } //necessary in case Tween
 						if (global) {
 							_globals[n] = _exports[n] = cl; //provides a way to avoid global namespace pollution. By default, the main classes like TweenLite, Power1, Strong, etc. are added to window unless a GreenSockGlobals is defined. So if you want to have things added to a custom object instead, just do something like window.GreenSockGlobals = {} before loading any GreenSock files. You can even set up an alias like window.GreenSockGlobals = windows.gs = {} so that you can access everything like gs.TweenLite. Also remember that ALL classes are added to the window.com.greensock object (in their respective packages, like com.greensock.easing.Power1, com.greensock.TweenLite, etc.)
 							hasModule = (typeof(module) !== "undefined" && module.exports);
-							if (!hasModule && "function" === "function" && __webpack_require__(5)){ //AMD
+							if (!hasModule && "function" === "function" && __webpack_require__(6)){ //AMD
 								!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function() { return cl; }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 							} else if (hasModule){ //node
@@ -18370,11 +18614,11 @@ if (_gsScope._gsDefine) { _gsScope._gsQueue.pop()(); } //necessary in case Tween
 		_tickerActive = false; //ensures that the first official animation forces a ticker.tick() to update the time when it is instantiated
 
 })((typeof(module) !== "undefined" && module.exports && typeof(global) !== "undefined") ? global : this || window, "TweenMax");
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ }),
-/* 3 */,
-/* 4 */
+/* 4 */,
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18384,15 +18628,15 @@ var _jquery = __webpack_require__(0);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _gsap = __webpack_require__(2);
+var _gsap = __webpack_require__(3);
 
 var _gsap2 = _interopRequireDefault(_gsap);
 
 var _DragOn = __webpack_require__(1);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _Resource = __webpack_require__(2);
 
-console.log(_DragOn.DragOn);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var winHeight = window.innerHeight;
 var introPlayed = false;
@@ -18461,48 +18705,65 @@ function playIntro() {
 			opacity: 0,
 			display: "none"
 		},
-		delay: 7.5
+		delay: 7.5,
+		onComplete: Cloud.init
 	});
 	introPlayed = true;
 }
 
 var Cloud = {
+
+	categories: {},
+
 	init: function init() {
-		Cloud.drag = new _DragOn.DragOn('#cloud'), Cloud.vue = new Vue({
-			el: '#layer',
-			data: {
-				resources: [],
-				categories: {
-					amour: {
-						entryPoint: null,
-						content: []
-					},
-					travail: {
-						entryPoint: null,
-						content: []
-					},
-					jeunesse: {
-						entryPoint: null,
-						content: []
-					},
-					pensées: {
-						entryPoint: null,
-						content: []
-					},
-					Histoire: {
-						entryPoint: null,
-						content: []
-					}
-				}
-			}
-		});
+		var _this = this;
+
+		Cloud.drag = new _DragOn.DragOn('#cloud');
+
+		Cloud.drag.add(new _DragOn.Element('#bg', -8));
 
 		Cloud.getResources(function (r) {
-			Cloud.vue.resources = r;
-			Cloud.storeResources();
-		});
 
-		Cloud.drag.add(new _DragOn.Element('#layer', 0));
+			for (var _i = 0; _i < r.length; _i++) {
+
+				var res = r[_i];
+
+				var cat = _this.categories[res.category];
+
+				if (!cat) {
+
+					_this.categories[r[_i].category] = new _Resource.Category(r[_i].category);
+					cat = _this.categories[r[_i].category];
+				}
+
+				var resource = new _Resource.Resource(res, -4 + Math.round(Math.random() * 8), '#cloud');
+
+				if (resource.data.type == 'vidéo') {
+					cat.entryPoint = resource;
+					cat.entryPoint.setZ(6);
+				}
+				cat.add(resource);
+				Cloud.drag.add(resource);
+			}
+
+			var bg = Cloud.drag.find('#bg');
+
+			var positions = [{ x: (0, _jquery2.default)(bg.el).width() / 4, y: (0, _jquery2.default)(bg.el).height() / 4 }, { x: (0, _jquery2.default)(bg.el).width() / 4 * 3, y: (0, _jquery2.default)(bg.el).height() / 4 }, { x: (0, _jquery2.default)(bg.el).width() / 4, y: (0, _jquery2.default)(bg.el).height() / 4 * 3 }, { x: (0, _jquery2.default)(bg.el).width() / 4 * 3, y: (0, _jquery2.default)(bg.el).height() / 4 * 3 }, { x: (0, _jquery2.default)(bg.el).width() / 2, y: (0, _jquery2.default)(bg.el).height() / 2 }];
+
+			var i = 0;
+
+			for (var _cat in Cloud.categories) {
+
+				var x = positions[i].x;
+				var y = positions[i].y;
+
+				Cloud.categories[_cat].entryPoint.setPosition(x, y);
+				Cloud.categories[_cat].placeResources();
+				Cloud.drag.focusOn(Cloud.categories[_cat].entryPoint);
+
+				i++;
+			}
+		});
 	},
 	getResources: function getResources(callback) {
 		_jquery2.default.get('/api/resources', function (data) {
@@ -18521,7 +18782,7 @@ var Cloud = {
 Cloud.init();
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 /* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {/* globals __webpack_amd_options__ */
@@ -18530,7 +18791,7 @@ module.exports = __webpack_amd_options__;
 /* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 var g;
