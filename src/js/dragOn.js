@@ -28,8 +28,7 @@ export class DragOn {
 			'perspective' : '32px',
 			'overflow' : 'hidden',
 			'position' : 'relative',
-			'perspective-origin' : '50% 50%',
-			'cursor' : 'grab'
+			'perspective-origin' : '50% 50%'
 		})
 
 	// on mouse down => drag start
@@ -46,8 +45,11 @@ export class DragOn {
 		// reset velocity
 			this.velocity = {x:0, y: 0};
 
+			$(element).addClass('mouseDown')
+
 			$(element).css({
-				'cursor' : 'grabbing'
+				'cursor': '-webkit-grabbing',
+				'cursor':'-moz-grabbing'
 			})
 
 		});
@@ -82,12 +84,14 @@ export class DragOn {
 			}
 			
 			$(element).css({
-				'cursor' : 'grabbing'
+				'cursor': '-webkit-grab',
+				'cursor':'-moz-grab'
 			})
 		// set velocity
 			this.velocity.x = Math.abs(avgDelta('x')) > 2 ? -avgDelta('x') : 0;
 			this.velocity.y = Math.abs(avgDelta('y')) > 2 ? -avgDelta('y') : 0;
 			
+			$(element).removeClass('mouseDown')			
 		});
 	
 	// on mouse move => move camera

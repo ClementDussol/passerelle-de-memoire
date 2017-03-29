@@ -42,6 +42,13 @@
 	margin: 0;
 	padding: 0;
 	background-color: grey;
+	cursor: -webkit-grab;
+	cursor: -moz-grab;
+}
+
+#cloud.mouseDown {
+	cursor: -webkit-grabbing;
+	cursor: -moz-grabbing;	
 }
 
 #bg {
@@ -56,7 +63,7 @@
 }
 
 .travail {
-	background-color: rgb(255, 111, 170);
+	background-color: rgb(170, 218, 121);
 }
 
 .pensées {
@@ -88,6 +95,10 @@
 	margin: 8px;
 	display: block;
 	box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.4);
+}
+
+.resource:hover {
+	cursor: pointer ;
 }
 
 .resource.image {
