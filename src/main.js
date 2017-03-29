@@ -13,6 +13,7 @@ let cloudInitiated = false;
 $(document).ready(()=>{
 	playMenu();
 	
+	$('#controller').on('click', '#add',openForm);
 	$('#share').on('click', '#close',closeForm);
 
 	let scrolli = $("body").scrollTop();
@@ -120,7 +121,7 @@ function playIntro() {
 	introPlayed = true;
 }
 function openForm(){
-	TweenLite.to($('#share'),1,
+	TweenLite.to($('#share'),.3,
 		{
 		height:"90vh",
 		marginTop:"10vh",
@@ -129,11 +130,11 @@ function openForm(){
 	);
 }
 function closeForm(){
-	TweenLite.to($('#share'),1,
+	TweenLite.to($('#share'),.3,
 		{
 		height:"0vh",
-		marginTop:"70vh",
-		opacity:"0"
+		marginTop:"88vh",
+		opacity:".5"
 		}
 	);	
 }
