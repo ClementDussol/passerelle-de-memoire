@@ -13,6 +13,8 @@ let cloudInitiated = false;
 $(document).ready(()=>{
 	playMenu();
 	
+	$('#share').on('click', '#close',closeForm);
+
 	let scrolli = $("body").scrollTop();
 	let interval = setInterval(function () {
 	    scrolli = $("body").scrollTop();
@@ -42,6 +44,7 @@ $(document).ready(()=>{
 	})
 
 	$(window).scroll();
+
 });
 
 function playMenu() {
@@ -115,6 +118,24 @@ function playIntro() {
 		}
 	); 
 	introPlayed = true;
+}
+function openForm(){
+	TweenLite.to($('#share'),1,
+		{
+		height:"90vh",
+		marginTop:"10vh",
+		opacity:"1"
+		}
+	);
+}
+function closeForm(){
+	TweenLite.to($('#share'),1,
+		{
+		height:"0vh",
+		marginTop:"70vh",
+		opacity:"0"
+		}
+	);	
 }
 
 let catColors = {

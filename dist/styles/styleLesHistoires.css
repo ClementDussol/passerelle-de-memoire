@@ -76,11 +76,13 @@
 
 #share{
 	position: absolute;
+	overflow: hidden;
 	z-index: 10000;
 	background-color: #758ec6;
 	width: 100vw;
-	height: 90vh;
-	margin-top: 10vh;
+	height: 0vh;
+	margin-top: 70vh;
+	opacity: 0;
 	padding: 0 4vw;
 }
 #share *{
