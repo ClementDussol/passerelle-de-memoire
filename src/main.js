@@ -249,9 +249,9 @@ let Cloud = {
 			$(Cloud.drag.el).on('click', '.resource', (e)=>{
 				
 				let id = '#' + $(e.currentTarget).attr('id')
-				
+				Cloud.drag.find(id).open();
 				Cloud.drag.moveTo(id,(r)=>{
-					r.open();
+					
 				});
 			})
 

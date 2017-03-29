@@ -33,7 +33,9 @@ export class Resource extends Element {
 				break;
 			
 			case 'texte':
+				
 				$content = $('<p>').text(this.data.content).addClass('content');
+				
 				break;
 			
 			case 'image':
@@ -74,7 +76,6 @@ export class Resource extends Element {
 
 	open(){
 
-		$(this.el).addClass('open');
 	}
 }
 
