@@ -163,7 +163,7 @@ let Cloud = {
 
 				$(resource.el).css({
 					opacity:0,
-					transform:'scale(0) translateZ(-16px)'
+					transform:'scale(1) translateZ(-8px)'
 				})
 
 				Cloud.resources.push(resource);
