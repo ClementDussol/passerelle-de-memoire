@@ -14,8 +14,8 @@ export class Resource extends Element {
 		el.addClass(this.data.category);
 		el.addClass('resource');
 
-		let $title = $('<h2>').text(this.data.title);
-		let $desc  = $('<p>').text(this.data.description);
+		let $title = $('<h2>').text(this.data.title).addClass('title');
+		let $desc  = $('<p>').text(this.data.description).addClass('description');
 		let $content = null;
 		switch (this.data.type) {
 			case 'vidéo':
@@ -25,7 +25,7 @@ export class Resource extends Element {
 					width: "560",
 					height: "315",
 					frameborder:"0"
-				})
+				}).addClass('content')
 				
 				$desc.addClass('hidden');
 				$title.addClass('hidden');
@@ -33,7 +33,7 @@ export class Resource extends Element {
 				break;
 			
 			case 'texte':
-				$content = $('<p>').text(this.data.content);
+				$content = $('<p>').text(this.data.content).addClass('content');
 				break;
 			
 			case 'image':
@@ -41,7 +41,7 @@ export class Resource extends Element {
 				$desc.addClass('hidden');
 				$title.addClass('hidden');
 				
-				$content = $('<img>').attr('src', this.data.content);
+				$content = $('<img>').attr('src', this.data.content).addClass('content');
 				
 				break;
 		}
@@ -71,14 +71,20 @@ export class Resource extends Element {
 
 		return {x:x, y:y}
 	}
+
+	open(){
+
+		$(this.el).addClass('open');
+	}
 }
 
 export class Category {
 	
-	constructor(name) {
+	constructor(name, color) {
 		this.entryPoint = null;
 		this.name = name;
 		this.resources = [];
+		this.color = color;
 	}
 
 	add(r) {

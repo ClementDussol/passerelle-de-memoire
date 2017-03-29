@@ -28,7 +28,8 @@ export class DragOn {
 			'perspective' : '32px',
 			'overflow' : 'hidden',
 			'position' : 'relative',
-			'perspective-origin' : '50% 50%'
+			'perspective-origin' : '50% 50%',
+			'cursor' : 'grab'
 		})
 
 	// on mouse down => drag start
@@ -44,6 +45,10 @@ export class DragOn {
 
 		// reset velocity
 			this.velocity = {x:0, y: 0};
+
+			$(element).css({
+				'cursor' : 'grabbing'
+			})
 
 		});
 
@@ -75,7 +80,10 @@ export class DragOn {
 				}
 				return t / deltas.length;
 			}
-
+			
+			$(element).css({
+				'cursor' : 'grabbing'
+			})
 		// set velocity
 			this.velocity.x = Math.abs(avgDelta('x')) > 2 ? -avgDelta('x') : 0;
 			this.velocity.y = Math.abs(avgDelta('y')) > 2 ? -avgDelta('y') : 0;
@@ -120,6 +128,7 @@ export class DragOn {
 		return false;
 	}
 
+// move view on element
 	focusOn(element) {
 
 		if (typeof element == 'string') {
@@ -130,10 +139,27 @@ export class DragOn {
 		let x = parseInt($el.css('left')) - $(this.el).width()/2 + $el.width()/2;
 		let y = parseInt($el.css('top')) - $(this.el).height()/2 + $el.height()/2;
 
-		console.log(x,y);
-
 		$(this.el).scrollTop(y);
 		$(this.el).scrollLeft(x);
+	}
+
+// smoothly move to element
+	moveTo(element, callback) {
+				
+		if (typeof element == 'string') {
+			element = this.find(element);
+		}
+		let $el = $(element.el);
+		
+		let x = parseInt($el.css('left')) - $(this.el).width()/2 + $el.width()/2;
+		let y = parseInt($el.css('top')) - $(this.el).height()/2 + $el.height()/2;
+		
+		$(this.el).animate({
+			scrollLeft:x +'px',
+			scrollTop:y +'px'
+		}, 1000, ()=>{
+			callback(element);
+		});
 	}
 
 	animate() {
@@ -147,13 +173,24 @@ export class DragOn {
 	// apply velocity
 		$el.scrollTop($el.scrollTop() + this.velocity.y);
 		$el.scrollLeft($el.scrollLeft() + this.velocity.x);
+	}
 
-		let self = this;
+	getCenter(){
+		
+		let x = $(this.el).scrollLeft() + $(this.el).width()/2;
+		let y = $(this.el).scrollTop() + $(this.el).height()/2;
+		
+		return {x:x, y:y}
+	}
 
-	// loop
-		requestAnimationFrame(()=>{
-			self.animate();
-		});
+	getDistanceTo(r) {
+		
+		let rPos = r.getCenter();
+		let cPos = this.getCenter();
+
+		let dist = Math.sqrt(Math.pow(rPos.x-cPos.x, 2) + Math.pow(rPos.y-cPos.y, 2));
+		
+		return dist;
 	}
 
 /*	isInView(element){

@@ -8,19 +8,42 @@ let winHeight = window.innerHeight;
 let introPlayed = false;
 let affMenuPlayed = false;
 
+let cloudInitiated = false;
+
 $(document).ready(()=>{
 	playMenu();
 	
 	let scrolli = $("body").scrollTop();
-	setInterval(function () {
+	let interval = setInterval(function () {
 	    scrolli = $("body").scrollTop();
 
 	    if (scrolli>(winHeight-300) && !introPlayed){
 	    	playIntro();
+	    	clearInterval(interval);
 		};
+
 	}, 100);
-	
+
+	$(window).scroll((e)=>{
+
+		let scrollTop = $(e.currentTarget).scrollTop();
+		
+		if (scrollTop > 0) {
+			$('nav').attr('id', 'white-nav')
+		} else { 
+			$('nav').attr('id', '') 
+		}
+
+		if (scrollTop >= window.innerHeight*2 - 100 && !cloudInitiated) {
+			console.log('coucou');
+			Cloud.init();
+			cloudInitiated=true;
+		}
+	})
+
+	$(window).scroll();
 });
+
 function playMenu() {
 	affMenuPlayed = true;
 	let $blackFilter = $(".black-filter");
@@ -88,34 +111,46 @@ function playIntro() {
 				opacity:0,
 				display:"none"
 			},
-			delay:7.5,
-			onComplete: Cloud.init
+			delay:7.5
 		}
 	); 
 	introPlayed = true;
 }
 
+let catColors = {
+	amour: '#b081e9',
+	Histoire: '#ffdb7d',
+	jeunesse: '#8eb9fe',
+	pensées: '#e8a382',
+	travail: '#ff6faa'
+}
+
 let Cloud = {
 
+	currentCategory: {},
 	categories: {},
+	resources: [],
+
+	preInit(){
+		Cloud.drag = new DragOn('#cloud')
+		Cloud.drag.add(new Element('#bg', -8))		
+	},
 
 	init(){
 		
-		Cloud.drag = new DragOn('#cloud')
-
-		Cloud.drag.add(new Element('#bg', -8))
-		
 		Cloud.getResources((r)=>{
 			
-			for (let i = 0; i < r.length; i ++) {
+			let len = r.length
+
+			for (let i = 0; i < len; i ++) {
 				
 				let res = r[i];
 				
-				let cat = this.categories[res.category]
+				let cat = Cloud.categories[res.category]
 				
 				if ( !cat ) {
 
-					this.categories[r[i].category] = new Category(r[i].category);
+					this.categories[r[i].category] = new Category(r[i].category, catColors[r[i].category]);
 					cat = this.categories[r[i].category];
 				}
 
@@ -125,9 +160,66 @@ let Cloud = {
 					cat.entryPoint = resource;
 					cat.entryPoint.setZ(6);
 				}
+
+				$(resource.el).css({
+					opacity:0,
+					transform:'scale(0) translateZ(-16px)'
+				})
+
+				Cloud.resources.push(resource);
+
 				cat.add(resource);
 				Cloud.drag.add(resource);
+			};
+
+			
+			var images = $('img');
+			var counter = images.length;  // initialize the counter
+
+			function imageLoaded() {
+			    // function to invoke for loaded image
+			    // decrement the counter
+			    counter--;
+
+			    let p = counter*100/images.length;
+
+			    TweenLite.to($('#loadBar'), 0.1, {width: 100-p+'%'});
+			    
+			    if( counter === 0 ) {
+
+			        $('#loadBar').slideUp();
+			        let len = Cloud.resources.length
+			        for (var i = 0; i < len; i++) {
+			        	
+			        	let r = Cloud.resources[i];
+						
+						setTimeout(()=>{
+							TweenLite.to($('#loader'), 1, {opacity:0});
+							TweenLite.to($(r.el), 1,
+								{
+									css:
+									{
+										opacity:1,
+										transform:'scale(1) translateZ('+ r.z +'px)'
+									}
+								}
+							)
+						}, 1000 + i *100); 
+			        }
+			    }
 			}
+
+			$('#loadBar').slideDown();
+
+
+			images.each(function() {
+			    if( this.complete ) {
+			        imageLoaded.call( this );
+			    } else {
+			        $(this).one('load', imageLoaded);
+			    }
+			});
+
 
 			let bg = Cloud.drag.find('#bg')
 
@@ -153,6 +245,17 @@ let Cloud = {
 
 				i++;
 			}
+
+			$(Cloud.drag.el).on('click', '.resource', (e)=>{
+				
+				let id = '#' + $(e.currentTarget).attr('id')
+				
+				Cloud.drag.moveTo(id,(r)=>{
+					r.open();
+				});
+			})
+
+			Cloud.animate();
 		})
 
 	},
@@ -164,12 +267,49 @@ let Cloud = {
 	},
 
 	storeResources(){
-
-		for (let i = 0; i < Cloud.vue.resources.length; i++) {
+		let len = Cloud.vue.resources.length;
+		for (let i = 0; i < len; i++) {
 			let r = Cloud.vue.resources[i];
 			Cloud.vue.categories[r.category].content.push(r);
 		}
+	},
+
+	getClosestCategory(){
+		
+		let lowest = 100000000;
+		let r = null;
+		
+		for (let name in this.categories){
+			let cat = this.categories[name];
+
+			if (!cat || !cat.entryPoint) {continue};
+
+			let dist = Cloud.drag.getDistanceTo(cat.entryPoint);
+			if (dist < lowest) {
+				lowest = dist;
+				r = cat;
+			}
+		}
+
+		return r;
+	},
+
+	animate(){
+		
+		Cloud.drag.animate();
+
+		let closest = Cloud.getClosestCategory();
+
+		if (Cloud.currentCategory != closest) {
+			Cloud.currentCategory = closest;
+			$('#bg').removeClass('travail pensées Histoire jeunesse amour');
+			$('#bg').addClass(closest.name);
+		}
+
+/*		console.log(Cloud.getClosestCategory());
+*/
+		requestAnimationFrame(Cloud.animate);
 	}
 }
 
-Cloud.init();
+Cloud.preInit();

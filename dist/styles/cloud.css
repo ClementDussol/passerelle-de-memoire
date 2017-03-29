@@ -1,4 +1,42 @@
+#loader {
+	width: 100%;
+	height: 100vh;
+	background-color: white;
+	z-index: 1000;
+	position: absolute;
+	pointer-events: none;
+}
 
+#loadBar {
+	width: 100%;
+	height: 1vh;
+	background-color: #31C992;
+	display: none;
+}
+
+#spinContainer {
+	position: relative;
+	width: 8vw;
+	margin: 0 auto;
+	top: 50vh;
+	transform: translateY(-50%);
+}
+
+#spinner {
+
+	animation: load 2s infinite ease;
+}
+
+@keyframes load {
+  
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  50% {
+    transform: rotateY(360deg);
+  }
+}
 
 #cloud {
 	margin: 0;
@@ -11,18 +49,72 @@
 	padding: 0;
 	width: 10000px;
 	height:10000px;
-	background-image: url('./../assets/Images/pattern.jpg');
+	background-image: url('./../assets/Images/pattern.png');
 	background-repeat: repeat;
+	transition: 1s;
+
 }
 
+.travail {
+	background-color: rgb(255, 111, 170);
+}
+
+.pensées {
+	background-color: rgb(232, 163, 130);
+}
+
+.jeunesse {
+	background-color: rgb(142, 185, 254);
+}
+
+.Histoire {
+	background-color: rgb(255, 219, 125);
+}
+
+.amour {
+	background-color: rgb(176, 129, 233);
+}
+
+#cloud img,#cloud iframe {
+	display: block;
+}
+
+
+
 .resource {
+	
+	color: #3a3349;
 	background-color: white;
-	border-radius: 8px;
-	padding: 0.5em;
 	margin: 8px;
 	display: block;
-	min-width: 400px;
-	max-height: 600px;
+	box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.4);
+}
+
+.resource.image {
+	width: 25vw;
+}
+
+.resource * {
+	pointer-events: none;
+	user-select: none;
+}
+
+.resource.texte {
+	
+	border-radius: 16px;
+	padding: 2.5em;
+	width: 18vw;
+}
+
+.resource .title {
+	margin: 0;
+	font-family: GothamRnd;
+}
+
+.resource .content {
+	font-size: 1.2em;
+	margin: 0;
+	font-family: GothamRndLight;
 }
 
 .resource img {
