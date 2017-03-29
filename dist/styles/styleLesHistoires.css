@@ -89,6 +89,15 @@
 	#share .grid{
 		width: 92vw;
 	}
+	#share #close{
+		position: absolute;
+		top: 0;
+		right: 10vw;
+		cursor: pointer;
+		padding-left: 1vw;
+		padding-right: 1vw;
+		font-family: GothamRnd;
+	}
 	#share h2{
 		font-family: GothamRndLight;
 		font-size: 3.7em;
