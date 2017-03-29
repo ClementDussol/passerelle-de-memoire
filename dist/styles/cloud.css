@@ -1,3 +1,20 @@
+#viewer {
+	width: 100%;
+	height: 100vh;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 999;
+	position: absolute;
+	display: none;
+}
+
+#viewer #close {
+	color: white;
+	font-size: 5em;
+	position: absolute;
+	right: 6vw;
+	top: 12vh;
+}
+
 #loader {
 	width: 100%;
 	height: 100vh;

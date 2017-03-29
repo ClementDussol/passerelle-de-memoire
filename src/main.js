@@ -193,6 +193,10 @@ let Cloud = {
 				Cloud.drag.add(resource);
 			};
 
+			$('#viewer #close').on('click', function(){
+				closeViewer();
+			})
+
 			
 			var images = $('img');
 			var counter = images.length;  // initialize the counter
@@ -272,7 +276,7 @@ let Cloud = {
 				let id = '#' + $(e.currentTarget).attr('id')
 				Cloud.drag.find(id).open();
 				Cloud.drag.moveTo(id,(r)=>{
-					
+					openViewer();
 				});
 			})
 
@@ -334,3 +338,25 @@ let Cloud = {
 }
 
 Cloud.preInit();
+
+function openViewer () {
+
+	$('#viewer').fadeIn();
+	TweenLite.to($('#cloud'), 1,
+		{
+		filter: 'blur(5px)',
+		perspective: '64px'
+		}
+	);
+}
+
+function closeViewer () {
+
+	$('#viewer').fadeOut();
+	TweenLite.to($('#cloud'), 1,
+		{
+		filter: 'blur(0px)',
+		perspective: '32px'
+		}
+	);
+}
