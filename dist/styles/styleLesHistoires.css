@@ -81,8 +81,8 @@
 	background-color: #758ec6;
 	width: 100vw;
 	height: 0vh;
-	margin-top: 70vh;
-	opacity: 0;
+	margin-top: 88vh;
+	opacity: 0.5;
 	padding: 0 4vw;
 }
 #share *{
@@ -187,3 +187,77 @@
 	:-ms-input-placeholder { /* Internet Explorer 10-11 */
 	   color:    rgba(255,255,255,0.6);
 	}
+
+#controller{
+	background-color: #f2f1f2;
+	padding: 1.5vh 1.5vw;
+	position: absolute;
+	left: 5vw;
+	width: 87vw;
+	height: 5vh;
+	border-radius: 12px;
+	bottom: calc(-2 * 100vh - 3vh);
+	z-index: 30;
+	overflow: hidden;
+	box-shadow: 2px 2px 3px rgba(0,0,0,.2);
+}
+	#controller>*{
+		display: inline-block;
+		height: 5vh;
+		margin-top: 0;
+	}
+	#controller .line{
+		width: 2px;
+		background-color: rgba(10,10,10,0.6);
+		margin-left: 1.7vw;
+	}
+	#controller .theme{
+		margin-left: 4.5vw;
+	}
+		#controller .theme>.losange{
+			background-color: #222;
+			transform: rotate(45deg);
+			width: 10px; height: 10px;
+			margin: 0 auto;
+		}
+		#controller .theme>p{
+			line-height: 0;
+			height: 0;
+			font-family: GothamRnd;
+			text-transform: uppercase;
+		}
+	#controller #search-bar{
+		position: absolute;
+		margin-left: 6vw;
+		border: .2em solid rgba(10,10,10,0.6);
+		height: 4.6vh;
+	}
+		#controller #search-bar img{
+			margin-top: .8vh;
+			margin-left: .8vh;
+			height: 3vh;
+		}
+		#controller #search-bar input{
+			font-family: GothamRnd;
+			font-size: 1.6em;
+			background: none;
+			border:none;
+			outline: none;
+			height: inherit;
+			width: inherit;
+			padding-bottom: 1vh;
+			padding-left: .8vh;
+		}
+	#controller #add{
+		cursor: pointer;
+		float: right;
+		border: .2em solid #222;
+		width: 4vh; height: 4vh;
+		border-radius: 50%;
+	}
+		#controller #add p{
+			font-family: GothamRnd;
+			font-size: 2em;
+			margin: auto;
+			text-align: center;
+		}
