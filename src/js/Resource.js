@@ -17,6 +17,7 @@ export class Resource extends Element {
 		let $title = $('<h2>').text(this.data.title).addClass('title');
 		let $desc  = $('<p>').text(this.data.description).addClass('description');
 		let $content = null;
+		
 		switch (this.data.type) {
 			case 'vidéo':
 				
@@ -34,7 +35,7 @@ export class Resource extends Element {
 			
 			case 'texte':
 				
-				$content = $('<p>').text(this.data.content).addClass('content');
+				$content = $('<p>').text(this.data.content).addClass('content hidden');
 				
 				break;
 			
@@ -74,8 +75,22 @@ export class Resource extends Element {
 		return {x:x, y:y}
 	}
 
-	open(){
+	toString(){
 
+		let r = ''
+		switch (this.data.type) {
+			case 'vidéo':
+				r = '<iframe width="1024" height="576" class="vidéo" src="' + this.data.content.replace('watch?v=', 'embed/') +'?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe>'
+				break;
+			case 'texte':
+				r = '<div class="texte"><h2 class="title">'+ this.data.title +'</h2><p class="content"> '+ this.data.content +' </p></div>'
+				break;
+			case 'image':
+				r = '<img class="image" src="'+ this.data.content +'">'
+				break;
+		}
+
+		return r;
 	}
 }
 
@@ -114,8 +129,8 @@ export class Category {
 			
 			let p = this.resources[i].relativePertinence(this.entryPoint);
 			
-			let x = this.entryPoint.getCenter().x + Math.cos(i) * (50*i+400);
-			let y = this.entryPoint.getCenter().y + Math.sin(i) * (50*i+400);
+			let x = this.entryPoint.getCenter().x + Math.cos(i) * (64*i+560);
+			let y = this.entryPoint.getCenter().y + Math.sin(i) * (64*i+560);
 			
 			this.resources[i].setPosition(x, y);
 			

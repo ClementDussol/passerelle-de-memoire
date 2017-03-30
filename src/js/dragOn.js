@@ -148,7 +148,7 @@ export class DragOn {
 	}
 
 // smoothly move to element
-	moveTo(element, callback) {
+	moveTo(element, callback, time) {
 				
 		if (typeof element == 'string') {
 			element = this.find(element);
@@ -161,8 +161,8 @@ export class DragOn {
 		$(this.el).animate({
 			scrollLeft:x +'px',
 			scrollTop:y +'px'
-		}, 1000, ()=>{
-			callback(element);
+		}, (time ? time : 1000), ()=>{
+			if (callback) {callback(element)};
 		});
 	}
 

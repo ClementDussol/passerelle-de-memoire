@@ -12,7 +12,39 @@
 	font-size: 5em;
 	position: absolute;
 	right: 6vw;
-	top: 12vh;
+	top: 16vh;
+}
+
+
+#viewer #resource {
+	background-color: white;
+	position: absolute;
+	top: 16vh;
+	left: 50vw;
+	transform: translateX(-50%);
+	color: #3a3349;
+	max-width: 70vw;
+	max-height: 75vh;
+	margin: 0 auto;
+	border-radius: 16px;
+	box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.4);
+}
+
+#viewer #resource img {
+	max-width: 70vw;
+	max-height: 75vh;
+}
+
+#viewer #resource h2,#viewer #resource p {
+	padding: 32px;
+}
+
+#viewer #resource .title {
+	font-family: GothamRnd;
+}
+
+#viewer #resource .content {
+	font-family: GothamRndLight;
 }
 
 #loader {
@@ -79,23 +111,23 @@
 
 }
 
-.travail {
+#bg.travail {
 	background-color: rgb(170, 218, 121);
 }
 
-.pensées {
+#bg.pensées {
 	background-color: rgb(232, 163, 130);
 }
 
-.jeunesse {
+#bg.jeunesse {
 	background-color: rgb(142, 185, 254);
 }
 
-.Histoire {
+#bg.Histoire {
 	background-color: rgb(255, 219, 125);
 }
 
-.amour {
+#bg.amour {
 	background-color: rgb(176, 129, 233);
 }
 
@@ -103,7 +135,9 @@
 	display: block;
 }
 
-
+#viewer img, #viewer iframe {
+	display: block;
+}
 
 .resource {
 	
@@ -129,9 +163,18 @@
 
 .resource.texte {
 	
+	background-color: rgba(255,255,255,0.3);
+	color: white;
+	padding: 2em;
+	width: 22vw;
 	border-radius: 16px;
-	padding: 2.5em;
-	width: 18vw;
+	opacity: 0.5;
+/* 	border: 3px solid white; */
+	box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.2);
+}
+
+.resource.texte * {
+	margin: 0;
 }
 
 .resource .title {

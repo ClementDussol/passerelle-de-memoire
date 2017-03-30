@@ -196,6 +196,12 @@ let Cloud = {
 
 			$('#viewer #close').on('click', function(){
 				closeViewer();
+			});
+
+			$('#controller').on('click', '.theme', function(e){
+				let cat = Cloud.categories[$(e.currentTarget).children('p').text()];
+				Cloud.goToCategory(cat);
+				Cloud.drag.velocity = {x:0, y: 0};
 			})
 
 			
@@ -275,9 +281,8 @@ let Cloud = {
 			$(Cloud.drag.el).on('click', '.resource', (e)=>{
 				
 				let id = '#' + $(e.currentTarget).attr('id')
-				Cloud.drag.find(id).open();
 				Cloud.drag.moveTo(id,(r)=>{
-					openViewer();
+					openViewer(Cloud.drag.find(id));
 				});
 			})
 
@@ -300,6 +305,15 @@ let Cloud = {
 		}
 	},
 
+	onCategoryChange(cat){
+		
+		$('#bg').removeClass('travail pensées Histoire jeunesse amour');
+		$('#bg').addClass(cat.name);
+		
+		$('#controller .theme').removeClass('active');
+		$('#controller .theme.'+cat.name).addClass('active');
+	},
+
 	getClosestCategory(){
 		
 		let lowest = 100000000;
@@ -320,6 +334,10 @@ let Cloud = {
 		return r;
 	},
 
+	goToCategory(cat) {
+		Cloud.drag.moveTo(cat.entryPoint, null, 2000);
+	},
+
 	animate(){
 		
 		Cloud.drag.animate();
@@ -328,36 +346,59 @@ let Cloud = {
 
 		if (Cloud.currentCategory != closest) {
 			Cloud.currentCategory = closest;
-			$('#bg').removeClass('travail pensées Histoire jeunesse amour');
-			$('#bg').addClass(closest.name);
+			Cloud.onCategoryChange(closest);
 		}
 
-/*		console.log(Cloud.getClosestCategory());
-*/
 		requestAnimationFrame(Cloud.animate);
 	}
 }
 
 Cloud.preInit();
 
-function openViewer () {
+let viewElement = {};
+
+function openViewer (r) {
+
+	viewElement = r;
+
+	console.log($('#viewer #resource'));
+	$('#viewer #resource').html(r.toString());
 
 	$('#viewer').fadeIn();
 	TweenLite.to($('#cloud'), 1,
 		{
-		filter: 'blur(5px)',
+		filter: 'blur(8px)',
 		perspective: '64px'
+		}
+	);
+	TweenLite.to($('#controller'), 1,
+		{
+		filter: 'blur(8px)'
 		}
 	);
 }
 
 function closeViewer () {
 
-	$('#viewer').fadeOut();
+	let r = viewElement;
+
+	$('#viewer').fadeOut(()=>{
+		$('#viewer #resource').html('');
+		TweenLite.to($(r.el), 1, {
+			opacity:0.5,
+			transform:'scale(1) translateZ(-8px)',
+			zIndex:0
+		})
+	});
 	TweenLite.to($('#cloud'), 1,
 		{
 		filter: 'blur(0px)',
 		perspective: '32px'
+		}
+	);
+	TweenLite.to($('#controller'), 1,
+		{
+		filter: 'blur(0px)'
 		}
 	);
 }

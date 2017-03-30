@@ -189,17 +189,17 @@
 	}
 
 #controller{
-	background-color: #f2f1f2;
+	background-color: #FFFFFF;
 	padding: 1.5vh 1.5vw;
 	position: absolute;
 	left: 5vw;
 	width: 87vw;
 	height: 5vh;
 	border-radius: 12px;
-	bottom: calc(-2 * 100vh - 3vh);
+	top: 290vh;
 	z-index: 30;
 	overflow: hidden;
-	box-shadow: 2px 2px 3px rgba(0,0,0,.2);
+	box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.4);
 }
 	#controller>*{
 		display: inline-block;
@@ -213,19 +213,50 @@
 	}
 	#controller .theme{
 		margin-left: 4.5vw;
+		transform: translateY(-0.5vh);
+
 	}
 		#controller .theme>.losange{
 			background-color: #222;
 			transform: rotate(45deg);
-			width: 10px; height: 10px;
+			width: 14px; height: 14px;
 			margin: 0 auto;
+			transition: 0.5s;
 		}
+
 		#controller .theme>p{
+			padding-top: 4px;
 			line-height: 0;
 			height: 0;
 			font-family: GothamRnd;
 			text-transform: uppercase;
 		}
+
+		#controller .theme.travail.active .losange {
+			background-color: rgb(170, 218, 121);
+			color: rgb(170, 218, 121);
+		}
+
+		#controller .theme.pensées.active .losange {
+			background-color: rgb(232, 163, 130);
+			color: rgb(232, 163, 130);
+		}
+
+		#controller .theme.jeunesse.active .losange {
+			background-color: rgb(142, 185, 254);
+			color: rgb(142, 185, 254);
+		}
+
+		#controller .theme.Histoire.active .losange {
+			background-color: rgb(255, 219, 125);
+			color: rgb(255, 219, 125);
+		}
+
+		#controller .theme.amour.active .losange {
+			background-color: rgb(176, 129, 233);
+			color: rgb(176, 129, 233);
+		}
+
 	#controller #search-bar{
 		position: absolute;
 		margin-left: 6vw;
