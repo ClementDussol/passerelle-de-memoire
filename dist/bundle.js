@@ -10506,7 +10506,7 @@ var DragOn = exports.DragOn = function () {
 
 	}, {
 		key: 'moveTo',
-		value: function moveTo(element, callback) {
+		value: function moveTo(element, callback, time) {
 
 			if (typeof element == 'string') {
 				element = this.find(element);
@@ -10519,8 +10519,10 @@ var DragOn = exports.DragOn = function () {
 			(0, _jquery2.default)(this.el).animate({
 				scrollLeft: x + 'px',
 				scrollTop: y + 'px'
-			}, 1000, function () {
-				callback(element);
+			}, time ? time : 1000, function () {
+				if (callback) {
+					callback(element);
+				};
 			});
 		}
 	}, {
@@ -10675,6 +10677,7 @@ var Resource = exports.Resource = function (_Element) {
 		var $title = (0, _jquery2.default)('<h2>').text(_this.data.title).addClass('title');
 		var $desc = (0, _jquery2.default)('<p>').text(_this.data.description).addClass('description');
 		var $content = null;
+
 		switch (_this.data.type) {
 			case 'vidéo':
 
@@ -10691,7 +10694,9 @@ var Resource = exports.Resource = function (_Element) {
 				break;
 
 			case 'texte':
-				$content = (0, _jquery2.default)('<p>').text(_this.data.content).addClass('content');
+
+				$content = (0, _jquery2.default)('<p>').text(_this.data.content).addClass('content hidden');
+
 				break;
 
 			case 'image':
@@ -10736,10 +10741,23 @@ var Resource = exports.Resource = function (_Element) {
 			return { x: x, y: y };
 		}
 	}, {
-		key: 'open',
-		value: function open() {
+		key: 'toString',
+		value: function toString() {
 
-			(0, _jquery2.default)(this.el).addClass('open');
+			var r = '';
+			switch (this.data.type) {
+				case 'vidéo':
+					r = '<iframe width="1024" height="576" class="vidéo" src="' + this.data.content.replace('watch?v=', 'embed/') + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
+					break;
+				case 'texte':
+					r = '<div class="texte"><h2 class="title">' + this.data.title + '</h2><p class="content"> ' + this.data.content + ' </p></div>';
+					break;
+				case 'image':
+					r = '<img class="image" src="' + this.data.content + '">';
+					break;
+			}
+
+			return r;
 		}
 	}]);
 
@@ -10790,8 +10808,8 @@ var Category = exports.Category = function () {
 
 				var p = this.resources[i].relativePertinence(this.entryPoint);
 
-				var x = this.entryPoint.getCenter().x + Math.cos(i) * (50 * i + 400);
-				var y = this.entryPoint.getCenter().y + Math.sin(i) * (50 * i + 400);
+				var x = this.entryPoint.getCenter().x + Math.cos(i) * (64 * i + 560);
+				var y = this.entryPoint.getCenter().y + Math.sin(i) * (64 * i + 560);
 
 				this.resources[i].setPosition(x, y);
 
@@ -18702,6 +18720,9 @@ var cloudInitiated = false;
 (0, _jquery2.default)(document).ready(function () {
 	playMenu();
 
+	(0, _jquery2.default)('#controller').on('click', '#add', openForm);
+	(0, _jquery2.default)('#share').on('click', '#close', closeForm);
+
 	var scrolli = (0, _jquery2.default)("body").scrollTop();
 	var interval = setInterval(function () {
 		scrolli = (0, _jquery2.default)("body").scrollTop();
@@ -18787,6 +18808,20 @@ function playIntro() {
 	});
 	introPlayed = true;
 }
+function openForm() {
+	_gsap2.default.to((0, _jquery2.default)('#share'), .3, {
+		height: "90vh",
+		marginTop: "10vh",
+		opacity: "1"
+	});
+}
+function closeForm() {
+	_gsap2.default.to((0, _jquery2.default)('#share'), .3, {
+		height: "0vh",
+		marginTop: "88vh",
+		opacity: ".5"
+	});
+}
 
 var catColors = {
 	amour: '#b081e9',
@@ -18834,7 +18869,7 @@ var Cloud = {
 
 				(0, _jquery2.default)(resource.el).css({
 					opacity: 0,
-					transform: 'scale(0) translateZ(-16px)'
+					transform: 'scale(1) translateZ(-8px)'
 				});
 
 				Cloud.resources.push(resource);
@@ -18842,6 +18877,16 @@ var Cloud = {
 				cat.add(resource);
 				Cloud.drag.add(resource);
 			};
+
+			(0, _jquery2.default)('#viewer #close').on('click', function () {
+				closeViewer();
+			});
+
+			(0, _jquery2.default)('#controller').on('click', '.theme', function (e) {
+				var cat = Cloud.categories[(0, _jquery2.default)(e.currentTarget).children('p').text()];
+				Cloud.goToCategory(cat);
+				Cloud.drag.velocity = { x: 0, y: 0 };
+			});
 
 			var images = (0, _jquery2.default)('img');
 			var counter = images.length; // initialize the counter
@@ -18912,9 +18957,8 @@ var Cloud = {
 			(0, _jquery2.default)(Cloud.drag.el).on('click', '.resource', function (e) {
 
 				var id = '#' + (0, _jquery2.default)(e.currentTarget).attr('id');
-
 				Cloud.drag.moveTo(id, function (r) {
-					r.open();
+					openViewer(Cloud.drag.find(id));
 				});
 			});
 
@@ -18932,6 +18976,14 @@ var Cloud = {
 			var r = Cloud.vue.resources[i];
 			Cloud.vue.categories[r.category].content.push(r);
 		}
+	},
+	onCategoryChange: function onCategoryChange(cat) {
+
+		(0, _jquery2.default)('#bg').removeClass('travail pensées Histoire jeunesse amour');
+		(0, _jquery2.default)('#bg').addClass(cat.name);
+
+		(0, _jquery2.default)('#controller .theme').removeClass('active');
+		(0, _jquery2.default)('#controller .theme.' + cat.name).addClass('active');
 	},
 	getClosestCategory: function getClosestCategory() {
 
@@ -18954,6 +19006,9 @@ var Cloud = {
 
 		return r;
 	},
+	goToCategory: function goToCategory(cat) {
+		Cloud.drag.moveTo(cat.entryPoint, null, 2000);
+	},
 	animate: function animate() {
 
 		Cloud.drag.animate();
@@ -18962,17 +19017,54 @@ var Cloud = {
 
 		if (Cloud.currentCategory != closest) {
 			Cloud.currentCategory = closest;
-			(0, _jquery2.default)('#bg').removeClass('travail pensées Histoire jeunesse amour');
-			(0, _jquery2.default)('#bg').addClass(closest.name);
+			Cloud.onCategoryChange(closest);
 		}
 
-		/*		console.log(Cloud.getClosestCategory());
-  */
 		requestAnimationFrame(Cloud.animate);
 	}
 };
 
 Cloud.preInit();
+
+var viewElement = {};
+
+function openViewer(r) {
+
+	viewElement = r;
+
+	console.log((0, _jquery2.default)('#viewer #resource'));
+	(0, _jquery2.default)('#viewer #resource').html(r.toString());
+
+	(0, _jquery2.default)('#viewer').fadeIn();
+	_gsap2.default.to((0, _jquery2.default)('#cloud'), 1, {
+		filter: 'blur(8px)',
+		perspective: '64px'
+	});
+	_gsap2.default.to((0, _jquery2.default)('#controller'), 1, {
+		filter: 'blur(8px)'
+	});
+}
+
+function closeViewer() {
+
+	var r = viewElement;
+
+	(0, _jquery2.default)('#viewer').fadeOut(function () {
+		(0, _jquery2.default)('#viewer #resource').html('');
+		_gsap2.default.to((0, _jquery2.default)(r.el), 1, {
+			opacity: 0.5,
+			transform: 'scale(1) translateZ(-8px)',
+			zIndex: 0
+		});
+	});
+	_gsap2.default.to((0, _jquery2.default)('#cloud'), 1, {
+		filter: 'blur(0px)',
+		perspective: '32px'
+	});
+	_gsap2.default.to((0, _jquery2.default)('#controller'), 1, {
+		filter: 'blur(0px)'
+	});
+}
 
 /***/ }),
 /* 5 */
